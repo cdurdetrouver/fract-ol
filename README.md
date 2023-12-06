@@ -23,9 +23,3 @@ Include some screenshots of the program in action.
 
 ## Conclusion
 A brief conclusion about the project, what you learned, any challenges you faced, etc.
-
-## Credits
-Give credit where credit is due. Mention any resources or individuals that helped you in the project.
-
-## License
-Include information about the license, if applicable.
