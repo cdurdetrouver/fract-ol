@@ -1,2 +1,31 @@
+# Ignore the minilibx-linux directory
 /minilibx-linux
+
+# Ignore Visual Studio Code settings
 .vscode
+
+# Ignore object files, executables, and libraries in libft
+libft/*.o
+libft/*.a
+libft/a.out
+
+# Ignore the executable of your project
+fractol
+
+# Ignore all .o files in the project
+*.o
+
+# Ignore all .a files in the project
+*.a
+
+# Ignore all .out files in the project
+*.out
+
+# Ignore all .swp files created by vim
+*.swp
+
+# Ignore all .DS_Store files created by macOS
+.DS_Store
+
+# Ignore the fract-ol file
+fract-ol

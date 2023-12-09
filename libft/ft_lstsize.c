@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 01:27:32 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/06 04:48:35 by gbazart          ###   ########.fr       */
+/*   Created: 2023/11/16 15:20:33 by marvin            #+#    #+#             */
+/*   Updated: 2023/11/20 13:32:59 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_fractol.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_lstsize(t_list *lst)
 {
-	int	a;
-	int	b;
+	int		count;
+	t_list	*current;
+	t_list	*next;
 
-	b = 42;
-	a = 32;
-	printf("bonjour\n %d%d", a, b);
-	return (0);
+	count = 0;
+	current = lst;
+	while (current)
+	{
+		next = current->next;
+		current = next;
+		count++;
+	}
+	return (count);
 }
