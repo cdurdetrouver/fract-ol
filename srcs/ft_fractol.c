@@ -6,68 +6,54 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 01:27:32 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/09 02:45:25 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/14 00:23:53 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_fractol.h"
 
-void	set_hooks(t_mlx *mlx)
+void	fractalrender(t_fractal *fractal)
 {
-	mlx_key_hook(mlx->win, key_press, mlx);
-	mlx_hook(mlx->win, 2, 1L << 0, key_press, mlx);
-	mlx_hook(mlx->win, 3, 1L << 1, key_release, mlx);
-	mlx_hook(mlx->win, 17, 1L << 17, close_window, mlx);
-	mlx_hook(mlx->win, 4, 1L << 2, mouse_scroll, mlx);
-	mlx_hook(mlx->win, 6, 1L << 6, mouse_move, mlx);
+	mlx_destroy_image(fractal->mlx.mlx_ptr, fractal->image.img);
+	fractal->image.img = mlx_new_image(fractal->mlx.mlx_ptr, WIDTH, HEIGHT);
+	fractal->image.addr = mlx_get_data_addr(fractal->image.img,
+			&fractal->image.bits_per_pixel, &fractal->image.line_length,
+			&fractal->image.endian);
+	if (!ft_strncmp(fractal->name, "mandelbrot", 10))
+		mandelbrotset(fractal);
+	else if (!ft_strncmp(fractal->name, "julia", 5))
+		juliaset(fractal);
+	else if (!ft_strncmp(fractal->name, "burningship", 11))
+		burningshipset(fractal);
+	mlx_put_image_to_window(fractal->mlx.mlx_ptr, fractal->mlx.win,
+		fractal->image.img, 0, 0);
 }
 
-static t_mlx	*init_mlx(void)
+void	init_mlx(t_mlx *mlx, t_image *image, char *name)
 {
-	t_mlx	*mlx;
-
-	mlx = malloc(sizeof(t_mlx));
-	if (!mlx)
-		return (NULL);
 	mlx->mlx_ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx_ptr, 800, 800, "Fractol");
-	mlx->img = mlx_new_image(mlx->mlx_ptr, mlx->width, mlx->height);
-	return (mlx);
-}
-
-void	createfractal(t_mlx *mlx, t_fractal *fractal, int fractal_number)
-{
-	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-	mlx->img = mlx_new_image(mlx->mlx_ptr, mlx->width, mlx->height);
-	mlx->addr = mlx_get_data_addr(mlx->mlx_ptr, fractal->bits_per_pixel,
-			fractal->line_length, fractal->endian);
-	fractal->func[fractal_number](fractal);
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img, 0, 0);
+	mlx->win = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, name);
+	image->img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
+			&image->line_length, &image->endian);
 }
 
 int	main(int argc, char **argv)
 {
-	int			fractal_number;
-	t_mlx		*mlx;
 	t_fractal	fractal;
 
-	fractal_number = 0;
-	if (argc == 1)
-		fractal_number = menu();
-	else if (argc == 2)
-		fractal_number = get_fractal(argv[1]);
-	if (fractal_number == 0)
+	if (argc >= 2)
 	{
-		ft_printf("Choix non valide.\n");
-		fractal_number = menu();
+		set_params(&fractal, argc, argv);
+		init_mlx(&fractal.mlx, &fractal.image, fractal.name);
+		fractalrender(&fractal);
+		print_instructions();
+		mlx_key_hook(fractal.mlx.win, key_hook, &fractal);
+		mlx_mouse_hook(fractal.mlx.win, mouse_click, &fractal);
+		mlx_hook(fractal.mlx.win, 17, 1L << 17, close_window, &fractal);
+		mlx_loop(fractal.mlx.mlx_ptr);
 	}
-	ft_printf("\nVous avez choisi :  %s\n", print_fractal(fractal_number));
-	mlx->mlx = init_mlx();
-	fractal.func[0] = NULL;
-	fractal.func[1] = mandelbrotset;
-	fractal.func[2] = julia;
-	createfractal(mlx, &fractal, fractal_number);
-	set_hooks(mlx);
-	mlx_loop(mlx->mlx_ptr);
+	else
+		wronginputs();
 	return (0);
 }

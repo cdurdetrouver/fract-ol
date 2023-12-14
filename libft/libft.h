@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:28:21 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:55:59 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:47:02 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 int					ft_isspace(char c);
+double				ft_atodbl(const char *str);
 
 // printf
 int					ft_putptr(void *ptr);

@@ -6,71 +6,31 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 23:35:39 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/09 02:13:05 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/13 20:52:18 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_fractol.h"
 
-int	get_fractal(char *arg)
+void	wronginputs(void)
 {
-	if (ft_strncmp(arg, "Mandelbrot", 10) == 0)
-		return (1);
-	// else if (ft_strncmp(arg, "Julia", 5) == 0)
-	// 	return (2);
-	// else if (ft_strncmp(arg, "Burning Ship", 12) == 0)
-	// 	return (3);
-	// else if (ft_strncmp(arg, "Tricorn", 7) == 0)
-	// 	return (4);
-	return (0);
+	ft_printf("Usage: ./fractol [fractal] (optional)\n");
+	ft_printf("Available fractals:\n");
+	ft_printf("  - mandelbrot\n");
+	ft_printf("  - julia (real) (imaginary)\n");
+	ft_printf("  - burning_ship\n");
+	exit(EXIT_FAILURE);
 }
 
-static int	ft_read(void)
+void	print_instructions(void)
 {
-	char	buffer[13];
-	int		i;
-	int		c;
-
-	i = 0;
-	while ((read(STDIN_FILENO, &c, 1) > 0))
-	{
-		if (c == '\n')
-			break ;
-		buffer[i++] = (char)c;
-	}
-	buffer[i] = '\0';
-	return (get_fractal(buffer));
-}
-
-char	*print_fractal(int choice)
-{
-	if (choice == 1)
-		return ("Mandelbrot");
-	// else if (choice == 2)
-	// 	return ("Julia");
-	// else if (choice == 3)
-	// 	return ("Burning Ship");
-	// else if (choice == 4)
-	// 	return ("Tricorn");
-	return ("");
-}
-
-int	menu(void)
-{
-	int	choice;
-
-	ft_printf("Choisissez une fractale :\n");
-	ft_printf("- Mandelbrot\n");
-	// ft_printf("- Julia\n");
-	// ft_printf("- Burning Ship\n");
-	// ft_printf("- Tricorn\n");
-	ft_printf("\nEntrez le nom de votre choix : ");
-	choice = ft_read();
-	while (choice == 0)
-	{
-		ft_printf("Choix non valide.\n");
-		ft_printf("Entrez votre choix : ");
-		choice = ft_read();
-	}
-	return (choice);
+	ft_printf("Instructions:\n");
+	ft_printf("  - Move: arrows\n");
+	ft_printf("  - Zoom: mouse wheel\n");
+	ft_printf("  - Change color: +/-\n");
+	ft_printf("  - Resolution: r\n");
+	ft_printf("  - Reset: middle mouse boutton\n");
+	ft_printf("  - Change fractal:\n\t  1: mandelbrot\n");
+	ft_printf("\t  2: julia\n\t  3: burning_ship\n");
+	ft_printf("  - Exit: esc\n");
 }

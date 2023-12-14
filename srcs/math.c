@@ -6,42 +6,35 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 01:35:27 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/09 01:35:33 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/13 20:12:23 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_fractol.h"
 
-t_complex	add(t_complex a, t_complex b)
+t_complex	sum(t_complex a, t_complex b)
 {
 	t_complex	c;
 
-	c.x = a.x + b.x;
-	c.y = a.y + b.y;
+	c.r = a.r + b.r;
+	c.i = a.i + b.i;
 	return (c);
 }
 
-t_complex	sqr(t_complex a)
+t_complex	square_complex(t_complex a)
 {
 	t_complex	c;
 
-	c.x = a.x * a.x - a.y * a.y;
-	c.y = 2 * a.x * a.y;
+	c.r = a.r * a.r - a.i * a.i;
+	c.i = 2 * a.r * a.i;
 	return (c);
 }
 
-t_complex	mappoint(t_fractal *fractal, double x, double y)
+t_complex	square_complex_abs(t_complex a)
 {
-	t_complex c;
-	double l;
+	t_complex	c;
 
-	if (fractal->width < fractal->height)
-		l = fractal->height * fractal->zoom;
-	else
-		l = fractal->width * fractal->zoom;
-	x += fractal->xarrow;
-	y += fractal->yarrow;
-	c.x = 2 * fractal->radius * (x - fractal->width / 2) / l;
-	c.y = 2 * fractal->radius * (y - fractal->height / 2) / l;
+	c.r = a.r * a.r - a.i * a.i;
+	c.i = 2 * fabs(a.r * a.i);
 	return (c);
 }

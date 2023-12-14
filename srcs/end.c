@@ -6,25 +6,24 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 02:34:22 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/09 02:40:09 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:15:46 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_fractol.h"
 
-int	freeall(t_mlx *mlx)
+int	freeall(t_fractal *fractal)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win);
-	mlx_destroy_display(mlx->mlx_ptr);
-	free(mlx->mlx_ptr);
-	exit(0);
+	mlx_destroy_image(fractal->mlx.mlx_ptr, fractal->image.img);
+	mlx_destroy_window(fractal->mlx.mlx_ptr, fractal->mlx.win);
+	mlx_destroy_display(fractal->mlx.mlx_ptr);
+	free(fractal->mlx.mlx_ptr);
+	return (EXIT_SUCCESS);
 }
 
 int	close_window(void *param)
 {
-	freeall(param);
 	ft_printf("\nBye!");
-	exit(0);
-	return (0);
+	exit(freeall(param));
+	return (EXIT_SUCCESS);
 }
