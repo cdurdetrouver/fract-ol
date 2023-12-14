@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:47:09 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/13 20:22:03 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:04:52 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	burningship_pixel(t_point pos, t_fractal *fractal)
 		if ((z.r * z.r) + (z.i * z.i) > fractal->escapevalue)
 		{
 			my_mlx_pixel_put(&fractal->image, pos, fractal->color * i);
-			break ;
+			return ;
 		}
 	}
+	my_mlx_pixel_put(&fractal->image, pos, 0x000000);
 }
 
 void	burningshipset(t_fractal *fractal)

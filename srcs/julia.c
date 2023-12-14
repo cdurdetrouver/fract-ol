@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:53:11 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/13 19:29:33 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:05:05 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	julia_pixel(t_point pos, t_fractal *fractal)
 		if (z.r * z.r + z.i * z.i > fractal->escapevalue)
 		{
 			my_mlx_pixel_put(&fractal->image, pos, fractal->color * i);
-			break ;
+			return ;
 		}
 	}
+	my_mlx_pixel_put(&fractal->image, pos, 0x000000);
 }
 
 void	juliaset(t_fractal *fractal)

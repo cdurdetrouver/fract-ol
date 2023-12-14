@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 01:27:32 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/14 00:23:53 by gbazart          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:55:27 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 void	fractalrender(t_fractal *fractal)
 {
-	mlx_destroy_image(fractal->mlx.mlx_ptr, fractal->image.img);
-	fractal->image.img = mlx_new_image(fractal->mlx.mlx_ptr, WIDTH, HEIGHT);
-	fractal->image.addr = mlx_get_data_addr(fractal->image.img,
-			&fractal->image.bits_per_pixel, &fractal->image.line_length,
-			&fractal->image.endian);
+	mlx_clear_window(fractal->mlx.mlx_ptr, fractal->mlx.win);
 	if (!ft_strncmp(fractal->name, "mandelbrot", 10))
 		mandelbrotset(fractal);
 	else if (!ft_strncmp(fractal->name, "julia", 5))
