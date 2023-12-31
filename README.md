@@ -10,7 +10,6 @@ The Fractol project is a deep dive into the world of fractals, a fascinating mat
 * Render different types of fractals: Mandelbrot set, Julia set, etc.
 * Zoom in and out of the fractal display.
 * Modify the color scheme of the fractals.
-* Multithreading for efficient computation.
 
 ## Installation
 Provide instructions on how to install and run the project.
